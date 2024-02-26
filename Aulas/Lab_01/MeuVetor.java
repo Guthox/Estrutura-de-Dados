@@ -30,13 +30,40 @@ public class MeuVetor {
     public boolean estaVazio(){
         return ultimaPos == -1;
     }
-    public boolean add (int elemento) {
-        if (estaCheio())
-            return false;
+    // public boolean add (int elemento) {
+    //     if (estaCheio())
+    //         return false;
+    //     ultimaPos++;
+    //     v[ultimaPos] = elemento;
+    //     return true;
+    // }
+
+    public void add(int elemento){
+        if(estaCheio()){
+            redimensiona(v.length*2);
+        }
         ultimaPos++;
         v[ultimaPos] = elemento;
-        return true;
     }
+
+    public int remove(){
+        if(estaVazio()) return 0;
+        int temporario = v[ultimaPos];
+        ultimaPos--;
+        if (v.length >= 10 && ultimaPos <= v.length/4){
+            redimensiona(v.length/2);
+        }
+        return temporario;
+    }
+
+    private void redimensiona(int novaCapacidade){
+        int[] temp = new int[novaCapacidade];
+        for (int i = 0; i <= ultimaPos; i++){
+            temp[i] = v[i];
+        }
+        v = temp;
+    }
+
     @Override
     public String toString() {
         String s = "";
