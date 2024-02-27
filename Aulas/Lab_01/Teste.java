@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Teste {
     public static void main(String[] args) {
         // MeuVetor v1 = new MeuVetor(10);
@@ -15,26 +13,19 @@ public class Teste {
         //     System.out.println("vetor esta cheio!");
         // }
 
-        MeuVetor vetor = encherVetor(100);
+        MeuVetor vetor = new MeuVetor(1);
+        vetor.preencherVetor(100);
         System.out.println("##############################");
+        System.out.println(vetor.toString());
         vetor = removerTodos(vetor);
     }
 
     public static MeuVetor removerTodos(MeuVetor v1){
         while (!v1.estaVazio()) {
             v1.remove();
-            System.out.println("Capacidade: " + v1.getV().length);
+            //System.out.println("Capacidade: " + v1.getV().length);
         }
         return v1;
     }
 
-    private static MeuVetor encherVetor (int quantidade){
-        MeuVetor vetor = new MeuVetor(1);
-        Random random = new Random();
-        for (int i = 0; i < quantidade; i++){
-            vetor.add(random.nextInt(100 + 1));
-            System.out.println("Capacidade: " + vetor.getV().length);
-        }
-        return vetor;
-    }
 }

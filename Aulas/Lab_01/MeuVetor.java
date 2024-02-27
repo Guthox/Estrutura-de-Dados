@@ -1,9 +1,11 @@
+import java.util.Random;
+
 public class MeuVetor {
-    private int[] v;
+    private double[] v;
     private int ultimaPos;
 
     public MeuVetor (int capacidade) {
-        v = new int[capacidade];
+        v = new double[capacidade];
         ultimaPos = -1;
     }
 
@@ -11,7 +13,7 @@ public class MeuVetor {
     public int getUltimaPos() {
         return ultimaPos;
     }
-    public int[] getV() {
+    public double[] getV() {
         return v;
     }
 
@@ -38,6 +40,14 @@ public class MeuVetor {
     //     return true;
     // }
 
+    public void add(double elemento){
+        if(estaCheio()){
+            redimensiona(v.length*2);
+        }
+        ultimaPos++;
+        v[ultimaPos] = elemento;
+    }
+
     public void add(int elemento){
         if(estaCheio()){
             redimensiona(v.length*2);
@@ -46,9 +56,13 @@ public class MeuVetor {
         v[ultimaPos] = elemento;
     }
 
-    public int remove(){
+    public void resetar(){
+        ultimaPos = -1;
+    }
+
+    public double remove(){
         if(estaVazio()) return 0;
-        int temporario = v[ultimaPos];
+        double temporario = v[ultimaPos];
         ultimaPos--;
         if (v.length >= 10 && ultimaPos <= v.length/4){
             redimensiona(v.length/2);
@@ -57,7 +71,7 @@ public class MeuVetor {
     }
 
     private void redimensiona(int novaCapacidade){
-        int[] temp = new int[novaCapacidade];
+        double[] temp = new double[novaCapacidade];
         for (int i = 0; i <= ultimaPos; i++){
             temp[i] = v[i];
         }
@@ -72,10 +86,24 @@ public class MeuVetor {
         }
         else {
             for (int i=0; i<=ultimaPos; i++) {
-                s = s + v[i] + " ";
+                s = s + String.format("%.0f ", v[i]);
             }
         }
         s = s + "\n";
         return s;
+    }
+
+    public void preencherVetor(){
+        Random random = new Random();
+        for (int i = 0; i < v.length; i++){
+            add(random.nextInt(v.length * 10));
+        }
+    }
+
+    public void preencherVetor(int capacidade){
+        Random random = new Random();
+        for (int i = 0; i < capacidade; i++){
+            add(random.nextInt(v.length * 10));
+        }
     }
 }
