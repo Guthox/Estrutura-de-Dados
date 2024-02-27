@@ -106,4 +106,54 @@ public class MeuVetor {
             add(random.nextInt(v.length * 10));
         }
     }
+
+
+    // EXTRAS
+    public void preencherVetor(int capacidade, boolean exclusivo){
+        if (exclusivo == false){
+            preencherVetor(capacidade);
+        }
+        Random random = new Random();
+        int aux;
+        for (int i = 0; i < capacidade; i++){
+            aux = random.nextInt(v.length * 10);
+            if (acharValor(aux) > -1){
+                i--;
+                continue;
+            }
+            add(aux);
+        }
+    }
+
+    public double valorPeloIndex(int index){
+        return v[index];
+    } 
+
+    // Retorna -1 se não achou ou o valor do index do valor do parametro
+    public int acharValor(double valor){
+        for (int i = 0; i <= ultimaPos; i++){
+            if (valorPeloIndex(i) == valor){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void bubbleSort(){
+        for (int i = 0; i <= ultimaPos; i++){
+            boolean terminar = true;
+            for (int j = 0; j <= ultimaPos - i - 1; j++){
+                if (v[j] > v[j+1]){
+                    double aux = v[j];
+                    v[j] = v[j+1];
+                    v[j+1] = aux;
+                    terminar = false;
+                }
+            }
+            if (terminar){
+                return;
+            }
+        }
+    }
+
 }

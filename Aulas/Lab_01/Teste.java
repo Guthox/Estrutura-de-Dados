@@ -14,8 +14,9 @@ public class Teste {
         // }
 
         MeuVetor vetor = new MeuVetor(1);
-        vetor.preencherVetor(100);
-        System.out.println("##############################");
+        vetor.preencherVetor(100, true);
+        System.out.println(vetor.getUltimaPos());
+        vetor.bubbleSort();
         System.out.println(vetor.toString());
         vetor = removerTodos(vetor);
     }
