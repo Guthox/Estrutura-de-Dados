@@ -8,8 +8,13 @@ public class TesteLista{
 		}
 
 		System.out.println(lista.toString());
-		lista.adicionarEm(3, 3);
+
+		lista.trocarMenor();
+
 		System.out.println(lista.toString());
+
+
 
 	}
 }
+
