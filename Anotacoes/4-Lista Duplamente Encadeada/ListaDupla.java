@@ -90,6 +90,7 @@ public class ListaDupla {
         aux.getAnterior().setProximo(novo);
         aux.setAnterior(novo);
         novo.setProximo(aux);
+        novo.setAnterior(aux.getAnterior());
     }
 
     // Remove um elemento na posicao especificada
@@ -103,11 +104,13 @@ public class ListaDupla {
         int contador = 0;
         while (contador < posicao) { // Chega até a posicao correta
             aux = aux.getProximo();
+            contador++;
         }
         if (aux == ultimo){
             return removerFim();
         }
         aux.getAnterior().setProximo(aux.getProximo());
+        aux.getProximo().setAnterior(aux.getAnterior());
         return aux.getInfo();
     }
 
@@ -133,6 +136,124 @@ public class ListaDupla {
         return contador;
     }
 
+    // Remove a primeira ocorrencia do número e retorna a posicao removida
+    // Retorna -1 se o elemento não foi encontrado
+    public int removerPrimeiraOcorrencia(int valor){
+        if (estaVazio()){
+            return -1;
+        }
+        int pos = 0;
+        No aux = primeiro;
+        while (aux != null) {
+            if (aux.getInfo() == valor){
+                if (aux == primeiro){ // Se for o primeiro item na lista
+                    primeiro = aux.getProximo();
+                    aux.getProximo().setAnterior(null);
+                }
+                else if(aux == ultimo){ // se for o ultimo item na lista
+                    ultimo = aux.getAnterior();
+                    aux.getAnterior().setProximo(null);
+                }
+                else{ // Se estiver no meio da lista
+                    aux.getAnterior().setProximo(aux.getProximo());
+                    aux.getProximo().setAnterior(aux.getAnterior());
+                }
+                return pos;
+            }
+            aux = aux.getProximo();
+            pos++;
+        }
+        return -1;
+    }
+
+    // Remove todas as ocorrencias de um número e retorna o número de itens removidos
+    // Retorna 0 caso não foi encontrado nenhum valor
+    public int removerTodos(int valor){
+        if (estaVazio()){
+            return 0;
+        }
+
+        No aux = primeiro;
+        int removidos = 0;
+
+        while (aux != null){
+            if (aux.getInfo() == valor){
+                if (aux == primeiro){
+                    primeiro = aux.getProximo();
+                    aux.getProximo().setAnterior(null);
+                }
+                else if(aux == ultimo){
+                    ultimo = aux.getAnterior();
+                    aux.getAnterior().setProximo(null);
+                }
+                else{
+                    aux.getAnterior().setProximo(aux.getProximo());
+                    aux.getProximo().setAnterior(aux.getAnterior());
+                }
+                removidos++;
+            }
+            aux = aux.getProximo();
+        }
+        return removidos;
+    }
+
+
+    // Acha todas as ocorrencias de um valor e retorna uma lista com as posicoes das ocorrencias
+    // Retorna uma lista vazia caso não tenha nenhuma ocorrencia
+    public ListaDupla acharOcorrencias(int valor){
+        ListaDupla novaLista = new ListaDupla();
+        if (estaVazio()){
+            return novaLista;
+        }
+
+        No aux = primeiro;
+        int pos = 0;
+        while (aux != null){
+            if (aux.getInfo() == valor){
+                novaLista.adicionarFim(pos);
+            }
+            aux = aux.getProximo();
+            pos++;
+        }
+        return novaLista;
+    }
+
+    // Acha a primeira ocorrencia do valor e devolve a posicao.
+    // Retorna -1 se não for encontrado na lista
+    public int acharPrimeiro(int valor){
+        if (estaVazio()){
+            return -1;
+        }
+
+        No aux = primeiro;
+        int cont = 0;
+        while (aux != null) {
+            if (aux.getInfo() == valor){
+                return cont;
+            }
+            aux = aux.getProximo();
+            cont++;
+        }
+        return -1;
+    }
+
+    // Devolve o número de elementos na lista
+    // Retorna 0 caso não tenha nenhum elemento
+    public int tamanho(){
+        if (estaVazio()){
+            return 0;
+        }
+
+        int contador = 0;
+        No aux = primeiro;
+
+        while (aux != null) {
+            aux = aux.getProximo();
+            contador++;
+        }
+        return contador;
+    }
+
     @Override
     public String toString(){
         if (estaVazio()){
@@ -153,12 +274,12 @@ public class ListaDupla {
 /* 
 1. Inserir um elemento em uma determinada posição ################################################ adicionarEm(int valor, int posicao)
 2. Verificar quantas vezes um elemento aparece no vetor ########################################## contar(int valor)
-3. Remover um elemento de uma determinada posição ################################################ 
-4. Remover a primeira ocorrência de um determinado elemento ###################################### 
-5. Remover todas as ocorrências de um determinado elemento ####################################### 
-6. Criar uma nova instância da classe, com as posições de ocorrência de um determinado elemento ## 
-7. Devolver o índice da primeira ocorrência de um determinado elemento ########################### 
-8. Devolver o tamanho atual da lista de valores (quantos elementos ela tem) ###################### 
+3. Remover um elemento de uma determinada posição ################################################ removerEm(int posicao)
+4. Remover a primeira ocorrência de um determinado elemento ###################################### removerPrimeiraOcorrencia(int valor)
+5. Remover todas as ocorrências de um determinado elemento ####################################### removerTodos(int valor)
+6. Criar uma nova instância da classe, com as posições de ocorrência de um determinado elemento ## acharOcorrencias(int valor)
+7. Devolver o índice da primeira ocorrência de um determinado elemento ########################### acharPrimeiro(int valor)
+8. Devolver o tamanho atual da lista de valores (quantos elementos ela tem) ###################### tamanho()
 9. Esvaziar a lista ############################################################################## 
 10. Devolver uma cópia da lista ################################################################## 
 11. Reduzir o vetor ao tamanho dele ############################################################## Não se aplica

@@ -10,8 +10,8 @@ public class TesteLista {
         }
 
         System.out.println(lista.toString());
-        lista.removerEm(-2);
-        System.out.println(lista.toString());
+
+        System.out.println(lista.tamanho());
 
     }
 }
