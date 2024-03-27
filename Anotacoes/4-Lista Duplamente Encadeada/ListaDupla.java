@@ -254,6 +254,12 @@ public class ListaDupla {
         return contador;
     }
 
+    // Esvazia a lista
+    public void esvaziar(){
+        primeiro = null;
+        ultimo = null;
+    }
+
     @Override
     public String toString(){
         if (estaVazio()){
@@ -268,6 +274,112 @@ public class ListaDupla {
         return dados;
     }
 
+    // Retorna uma copia da lista
+    public ListaDupla copiarLista(){
+        ListaDupla nova = new ListaDupla();
+
+        if (estaVazio()){
+            return nova;
+        }
+
+        No aux = primeiro;
+        while (aux != null){
+            nova.adicionarFim(aux.getInfo());
+            aux = aux.getProximo();
+        }
+
+        return nova;
+    }
+
+    // Adiciona uma nova lista no final da lista original
+    public void mesclarLista(ListaDupla lista){
+        No aux = lista.primeiro;
+        while (aux != null){
+            adicionarFim(aux.getInfo());
+            aux = aux.getProximo();
+        }
+    }
+
+    // Soma todos os elementos da lista e retorna
+    // Gera erro se a lista estiver vazia
+    public int somar(){
+        int soma = 0;
+        No aux = primeiro;
+        while (aux != null) {
+            soma += aux.getInfo();
+            aux = aux.getProximo();
+        }
+        return soma;
+    }
+
+    // Acha o maior valor e retorna
+    // É gerado erro caso a lista esteja vazia
+    public int maior(){
+        int maior = primeiro.getInfo();
+        No aux = primeiro;
+
+        while (aux != null) {
+            if (aux.getInfo() > maior){
+                maior = aux.getInfo();
+            }
+            aux = aux.getProximo();
+        }
+        return maior;
+    }
+
+    // Retorna a posicao do maior elemento
+    // Retorna -1 se a lista estiver vazia
+    public int posMaior(){
+        if (estaVazio()){
+            return -1;
+        }
+
+        int maior = primeiro.getInfo();
+        int posMaior = 0;
+        int contador = 0;
+        No aux = primeiro;
+
+        while (aux != null) {
+            if (aux.getInfo() > maior){
+                maior = aux.getInfo();
+                posMaior = contador;
+            }
+            contador++;
+            aux = aux.getProximo();
+        }
+        return posMaior;
+    }
+
+    // Troca a posição do menor elemento com a posicao 0
+    // Se a lista estiver vazia, nada acontece
+    public void permutaMenor(){
+        if (estaVazio()){
+            return;
+        }
+
+        int menor = primeiro.getInfo();
+        int menorPos = 0;
+        int contador = 0;
+        No aux = primeiro;
+        while (aux != null) {
+            if (aux.getInfo() < menor){
+                menor = aux.getInfo();
+                menorPos = contador; 
+            }
+            contador++;
+            aux = aux.getProximo();
+        }
+        int primeiroElemento = primeiro.getInfo();
+        aux = primeiro;
+        aux.setInfo(menor);
+        contador = 0;
+        while (contador < menorPos) {
+            aux = aux.getProximo();
+            contador++;
+        }
+        aux.setInfo(primeiroElemento);
+
+    }
 }
 
 
@@ -280,12 +392,12 @@ public class ListaDupla {
 6. Criar uma nova instância da classe, com as posições de ocorrência de um determinado elemento ## acharOcorrencias(int valor)
 7. Devolver o índice da primeira ocorrência de um determinado elemento ########################### acharPrimeiro(int valor)
 8. Devolver o tamanho atual da lista de valores (quantos elementos ela tem) ###################### tamanho()
-9. Esvaziar a lista ############################################################################## 
-10. Devolver uma cópia da lista ################################################################## 
+9. Esvaziar a lista ############################################################################## esvaziar()
+10. Devolver uma cópia da lista ################################################################## copiarLista()
 11. Reduzir o vetor ao tamanho dele ############################################################## Não se aplica
-12. Receber 2 vetores de entrada e mesclá-los num único vetor. ################################### 
-13. Somar os elementos da lista ################################################################## 
-14. Encontrar o maior elemento armazenado ######################################################## 
-15. Encontrar a posição do maior elemento armazenado ############################################# 
-16. Encontrar o menor elemento armazenado e coloca-lo na posição 0 (fazer a troca) ############### 
+12. Receber 2 vetores de entrada e mesclá-los num único vetor. ################################### mesclarLista(ListaDupla lista)
+13. Somar os elementos da lista ################################################################## somar()
+14. Encontrar o maior elemento armazenado ######################################################## maior()
+15. Encontrar a posição do maior elemento armazenado ############################################# posMaior()
+16. Encontrar o menor elemento armazenado e coloca-lo na posição 0 (fazer a troca) ############### permutaMenor()
 */
