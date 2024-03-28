@@ -407,7 +407,7 @@ public class ListaDupla<Tipo>{
     @Override
     public String toString(){
         if (size() == 0){
-            return "";
+            return "[]";
         }
         String dados = "[";
         No<Tipo> aux = primeiro;
