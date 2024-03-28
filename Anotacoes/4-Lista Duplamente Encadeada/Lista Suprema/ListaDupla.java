@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class ListaDupla<Tipo>{
     
     public class No<Tipo2>{
@@ -113,10 +115,18 @@ public class ListaDupla<Tipo>{
     // descendingIterator
 
     public Tipo element(){
+        if (size() == 0){
+            throw new NoSuchElementException();
+        }
         return primeiro.getInfo();
     }
 
     public Tipo get(int index){
+
+        if (index < 0 || index >= size()){
+            throw new IndexOutOfBoundsException();
+        }
+
         No<Tipo> aux = primeiro;
         for (int i = 0; i < index; i++){
             aux = aux.getProximo();
@@ -125,10 +135,16 @@ public class ListaDupla<Tipo>{
     }
 
     public Tipo getFirst(){
+        if (size() == 0){
+            throw new NoSuchElementException();
+        }
         return primeiro.getInfo();
     }
 
     public Tipo getLast(){
+        if (size() == 0){
+            throw new NoSuchElementException();
+        }
         return ultimo.getInfo();
     }
 
@@ -180,11 +196,26 @@ public class ListaDupla<Tipo>{
 
     // push()
 
-    // remove()
+    public Tipo remove(){
+        if (size() == 0){
+            throw new NoSuchElementException();
+        }
+        Tipo valor = primeiro.getInfo();
+        primeiro = primeiro.getProximo();
+        if (primeiro == null){
+            ultimo = null;
+        }
+        else{
+            primeiro.setAnterior(null);
+        }
+        return valor;
+    }
 
-    // remove(Tipo info)
+    // remove(int index)    
 
-    // removeFirst()
+    public Tipo removeFirst(){
+        return remove();
+    }
 
     // removeFirstOccurrence(Tipo info)
 
