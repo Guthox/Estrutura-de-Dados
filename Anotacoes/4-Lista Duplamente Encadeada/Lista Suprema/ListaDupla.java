@@ -412,7 +412,15 @@ public class ListaDupla<Tipo>{
 
     // spliterator()
 
-    // toArray()
+    public Object[] toArray(){
+        Object[] object = new Object[tamanho];
+        No<Tipo> aux = primeiro;
+        for (int i = 0; i < tamanho; i++){
+            object[i] = aux.getInfo();
+            aux = aux.getProximo();
+        }
+        return object;
+    }
 
     @Override
     public String toString(){

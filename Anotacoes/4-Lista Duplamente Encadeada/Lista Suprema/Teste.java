@@ -11,11 +11,9 @@ public class Teste {
 
         start = System.currentTimeMillis();
 
-        for (int i = 0; i <= 1000000; i+= 10){ 
+        for (int i = 0; i <= 100000; i+= 10){ 
             java.add(i);
         }
-
-        java.removeFirstOccurrence(10);
 
         end = System.currentTimeMillis();
         System.out.println("Linked List: " + (end - start));
@@ -23,10 +21,9 @@ public class Teste {
 
         start = System.currentTimeMillis();
 
-        for (int i = 0; i <= 1000000; i+= 10){ 
+        for (int i = 0; i <= 100000; i+= 10){ 
             minha.add(i);
         }
-        minha.removeFirstOccurrence(10);
         
         end = System.currentTimeMillis();
         System.out.println("Minha List: " + (end - start));
