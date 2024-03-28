@@ -409,12 +409,13 @@ public class ListaDupla<Tipo>{
         if (size() == 0){
             return "";
         }
-        String dados = "";
+        String dados = "[";
         No<Tipo> aux = primeiro;
-        while (aux != null){
-            dados += aux.getInfo() + " ";
+        while (aux != ultimo){
+            dados += aux.getInfo() + ", ";
             aux = aux.getProximo();
         }
+        dados += ultimo.getInfo() + "]";
         return dados;
     }
 
