@@ -38,6 +38,7 @@ public class ListaDupla<Tipo>{
 
     private No<Tipo> primeiro;
     private No<Tipo> ultimo;
+    private int tamanho = 0;
 
     public ListaDupla (){
         primeiro = null;
@@ -54,6 +55,7 @@ public class ListaDupla<Tipo>{
             novo.setAnterior(ultimo);
         }
         ultimo = novo;
+        tamanho++;
         return true;
     }
 
@@ -81,7 +83,7 @@ public class ListaDupla<Tipo>{
         novo.setAnterior(aux.getAnterior());
         novo.setProximo(aux);
         aux.setAnterior(novo);
-
+        tamanho++;
     }
 
     public boolean addAll(ListaDupla<Tipo> lista){
@@ -93,6 +95,7 @@ public class ListaDupla<Tipo>{
         while (aux != null) {
             addLast(aux.getInfo());
             aux = aux.getProximo();
+            tamanho++;
         }
         return true;
     }
@@ -110,6 +113,7 @@ public class ListaDupla<Tipo>{
             add(index, aux.getInfo());
             aux = aux.getProximo();
             index++;
+            tamanho++;
         }
         return true;
     }
@@ -124,6 +128,7 @@ public class ListaDupla<Tipo>{
             novo.setProximo(primeiro);
         }
         primeiro = novo;
+        tamanho++;
     }
 
     public void addLast(Tipo info){
@@ -133,6 +138,7 @@ public class ListaDupla<Tipo>{
     public void clear(){
         primeiro = null;
         ultimo = null;
+        tamanho = 0;
     }
 
     public ListaDupla<Tipo> clone(){
@@ -305,12 +311,12 @@ public class ListaDupla<Tipo>{
         else{
             primeiro.setAnterior(null);
         }
+        tamanho--;
         return valor;
     }
 
     public Tipo remove(int index){
-        int tamanho = size();
-        if (index < 0 || index >= tamanho){
+        if (index < 0 || index >= size()){
             throw new IndexOutOfBoundsException();
         }
 
@@ -318,10 +324,21 @@ public class ListaDupla<Tipo>{
             return removeFirst();
         }
 
-        No<Tipo> aux = primeiro;
-        for (int i = 0; i < index; i++){
-            aux = aux.getProximo();
+        No<Tipo> aux;
+        if (index * 2 > tamanho){
+            aux = ultimo;
+            for (int i = 0; i < (tamanho - 1) - index; i++){
+                aux = aux.getAnterior();
+            }
         }
+        else{
+            aux = primeiro;
+            for (int i = 0; i < index; i++){
+                aux = aux.getProximo();
+            }
+        }
+
+       
         Tipo info = aux.getInfo();
         if (aux == ultimo){
             return removeLast();
@@ -329,6 +346,7 @@ public class ListaDupla<Tipo>{
 
         aux.getAnterior().setProximo(aux.getProximo());
         aux.getProximo().setAnterior(aux.getAnterior());
+        this.tamanho--;
         return info;
     }
 
@@ -359,6 +377,7 @@ public class ListaDupla<Tipo>{
         else{
             ultimo.setProximo(null);
         }
+        tamanho--;
         return info;
     }
     
@@ -388,15 +407,6 @@ public class ListaDupla<Tipo>{
     }
 
     public int size(){
-        if (primeiro == null){
-            return 0;
-        }
-        int tamanho = 0;
-        No<Tipo> aux = primeiro;
-        while (aux != null){
-            tamanho++;
-            aux = aux.getProximo();
-        }
         return tamanho;
     }
 
