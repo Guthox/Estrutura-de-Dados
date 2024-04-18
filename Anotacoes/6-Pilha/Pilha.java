@@ -1,20 +1,65 @@
-// Exemplo de pilha
+public class Pilha {
+   
+    private class No{
 
-public class Pilha{
+        private int info;
+        private No proximo;
 
-    public int valor;
-    public Pilha proximo;
+        public No(int info){
+            setInfo(info);
+        }
 
-    public Pilha(){
-        this.proximo = null;
+        public void setInfo(int info) {
+            this.info = info;
+        }
+        public int getInfo() {
+            return info;
+        }
+        public void setProximo(No proximo) {
+            this.proximo = proximo;
+        }
+        public No getProximo() {
+            return proximo;
+        }
+
     }
 
-    public void printarTodos(){
-        System.out.println("Valor: " + this.valor);
-        System.out.println("Proximo: " + this.proximo);
-        if (this.proximo != null){
-            this.proximo.printarTodos();
+    private No topo;
+
+    public boolean estaVazio(){
+        return topo == null;
+    }
+
+    public void push(int info){
+        No novo = new No(info);
+        if (estaVazio()){
+            topo = novo;
+            return;
         }
+        novo.setProximo(topo);
+        topo = novo;
+    }
+
+    public int pop(){
+        int aux = topo.getInfo();
+        topo = topo.getProximo();
+        return aux;
+    }
+
+    public int peek(){
+        return topo.getInfo();
+    }
+
+    @Override
+    public String toString(){
+        if (estaVazio()) return "Vazio";
+        String dados = "";
+        No aux = topo;
+        while (aux != null) {
+            dados += aux.getInfo() + "\n";
+            aux = aux.getProximo();
+        }
+        return dados;
     }
 
 }
