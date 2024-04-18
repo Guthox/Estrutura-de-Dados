@@ -1,25 +1,67 @@
-// Exemplo de fila
-
 public class Fila {
     
-    public int valor;
-    public Fila proximo;
+    private class No{
 
-    public Fila(){
-        proximo = null;
-    }
+        private int info;
+        private No proximo;
 
-    public Fila(int valor){
-        this.valor = valor;
-        proximo = null;
-    }
-
-    public void printarTodos(){
-        System.out.println("Valor: " + this.valor);
-        System.out.println("Proximo: " + this.proximo);
-        if (this.proximo != null){
-            this.proximo.printarTodos();
+        public No(int info){
+            setInfo(info);
         }
+
+        public void setInfo(int info) {
+            this.info = info;
+        }
+        public void setProximo(No proximo) {
+            this.proximo = proximo;
+        }
+        public int getInfo() {
+            return info;
+        }
+        public No getProximo() {
+            return proximo;
+        }
+
+    }
+
+    private No primeiro;
+    private No ultimo;
+    
+    public boolean estaVazio(){
+        return primeiro == null;
+    }
+
+    public void adicionar(int info){
+        No novo = new No(info);
+        if (estaVazio()){
+            primeiro = novo;
+            ultimo = novo;
+            return;
+        }
+        ultimo.setProximo(novo);
+        ultimo = novo;
+    }
+
+    public int remover(){
+        int aux = primeiro.getInfo();
+        primeiro = primeiro.getProximo();
+        return aux;
+    }
+
+    public int peek(){
+        return primeiro.getInfo();
+    }
+
+    @Override
+    public String toString(){
+        if (estaVazio()) return "Vazio";
+        No aux = primeiro;
+        String dados = "";
+        while (aux != null) {
+            dados += aux.getInfo() + " ";
+            aux = aux.getProximo();
+        }
+        return dados;
     }
 
 }
