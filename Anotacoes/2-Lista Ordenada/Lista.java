@@ -1,8 +1,6 @@
 // Lista simples ordenada utilizando array
 // Igual a lista simples só o algoritimo de ordenação é rodado a cada modificação.
 
-import java.util.Arrays;
-
 public class Lista {
     
     private int[] valores;

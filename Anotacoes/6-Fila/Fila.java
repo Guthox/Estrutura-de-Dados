@@ -1,67 +1,69 @@
-public class Fila {
-    
-    private class No{
+public class Fila<E>{
 
-        private int info;
-        private No proximo;
+    private class No<T>{
+        
+        private T info;
+        private No<T> proximo;
 
-        public No(int info){
-            setInfo(info);
-        }
-
-        public void setInfo(int info) {
+        public No(T info){
             this.info = info;
         }
-        public void setProximo(No proximo) {
+
+        public No<T> getProximo() {
+            return proximo;
+        }
+        public void setProximo(No<T> proximo) {
             this.proximo = proximo;
         }
-        public int getInfo() {
+        public T getInfo() {
             return info;
         }
-        public No getProximo() {
-            return proximo;
+        public void setInfo(T info) {
+            this.info = info;
         }
 
     }
 
-    private No primeiro;
-    private No ultimo;
-    
+    private No<E> primeiro;
+    private No<E> ultimo;
+
+    public Fila(){
+        this.primeiro = null;
+        this.ultimo = null;
+    }
+
     public boolean estaVazio(){
         return primeiro == null;
     }
 
-    public void adicionar(int info){
-        No novo = new No(info);
+    public void enfileira(E info){
+        No<E> novo = new No<E>(info);
         if (estaVazio()){
             primeiro = novo;
-            ultimo = novo;
-            return;
         }
-        ultimo.setProximo(novo);
+        else{
+            ultimo.setProximo(novo);
+        }
         ultimo = novo;
     }
 
-    public int remover(){
-        int aux = primeiro.getInfo();
-        primeiro = primeiro.getProximo();
-        return aux;
-    }
-
-    public int peek(){
-        return primeiro.getInfo();
+    public E desenfilera(){
+        if (estaVazio()) return null;
+        No<E> aux = primeiro;
+        primeiro = aux.getProximo();
+        return aux.getInfo();
     }
 
     @Override
     public String toString(){
-        if (estaVazio()) return "Vazio";
-        No aux = primeiro;
-        String dados = "";
+        if (estaVazio()) return "Vazia";
+        No<E> aux = primeiro;
+        String s = "";
         while (aux != null) {
-            dados += aux.getInfo() + " ";
+            s += aux.getInfo() + " ";
             aux = aux.getProximo();
         }
-        return dados;
+        return s;
     }
 
 }
